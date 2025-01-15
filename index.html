@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pythagoras' Number Guessing Game</title>
+    <style>
+        body {
+            background-color: #333;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background-color: #444;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        input[type="number"], input[type="text"] {
+            border: none;
+            border-radius: 15px;
+            padding: 10px;
+            margin: 10px 0;
+            width: 80%;
+            background-color: #ccc;
+            color: #333;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 15px;
+            background-color: #555;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Pythagoras' Number Guessing Game</h1>
+        <p>Pick a number between 1 and 10:</p>
+        <input type="number" id="userNumber" min="1" max="10" required>
+        <div id="questions" style="display: none;">
+            <h2>Answer the following questions:</h2>
+            <p>1. Is your number greater than 5?</p>
+            <input type="text" id="q1" required>
+            <p>2. Is your number even?</p>
+            <input type="text" id="q2" required>
+            <p>3. Is your number a prime number?</p>
+            <input type="text" id="q3" required>
+            <p>4. Is your number less than 3?</p>
+            <input type="text" id="q4" required>
+            <p>5. Is your number a single digit?</p>
+            <input type="text" id="q5" required>
+        </div>
+        <button id="startButton">Start Game</button>
+        <button id="submitButton" style="display: none;">Submit Answers</button>
+        <h2 id="result" style="display: none;"></h2>
+    </div>
+
+    <script>
+        const startButton = document.getElementById('startButton');
+        const submitButton = document.getElementById('submitButton');
+        const questionsDiv = document.getElementById('questions');
+        const result = document.getElementById('result');
+
+        startButton.addEventListener('click', () => {
+            const userNumber = document.getElementById('userNumber').value;
+            if (userNumber < 1 || userNumber > 10) {
+                alert("Please pick a number between 1 and 10.");
+                return;
+            }
+            questionsDiv.style.display = 'block';
+            startButton.style.display = 'none';
+            submitButton.style.display = 'block';
+        });
+
+        submitButton.addEventListener('click', () => {
+            const q1 = document.getElementById('q1').value.toLowerCase();
+            const q2 = document.getElementById('q2').value.toLowerCase();
+            const q3 = document.getElementById('q3').value.toLowerCase();
+            const q4 = document.getElementById('q4').value.toLowerCase();
+            const q5 = document.getElementById('q5').value.toLowerCase();
+
+            let guess = 0;
+
+            // Logic to guess the number based on answers
+            if (q1 === 'yes') guess += 6; // Greater than 5
+            if (q2 === 'yes') guess += 2; // Even
+            if (q3 === 'yes') guess += 3; // Prime
+            if (q4 === 'yes') guess += 1; // Less than 3
+            if (
